@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# Crear el grupo docker si no existe
+if ! getent group docker > /dev/null 2>&1; then
+    sudo groupadd docker
+    echo "Grupo 'docker' creado."
+else
+    echo "El grupo 'docker' ya existe."
+fi
+
+# Agregar el usuario actual al grupo docker
+sudo usermod -aG docker ubuntu
+echo "Usuario $USER agregado al grupo 'docker'."
+
+# Aplicar los cambios de grupo sin cerrar sesión
+newgrp docker
+
+echo "Configuración completada. Si experimentas problemas, reinicia la máquina o cierra y vuelve a iniciar sesión."
+
+
+
+
+
+
+
+
+
+#!/bin/bash
+
+# Crear el grupo docker si no existe
+if ! getent group docker > /dev/null 2>&1; then
+    sudo groupadd docker
+    echo "Grupo 'docker' creado."
+else
+    echo "El grupo 'docker' ya existe."
+fi
+
+# Agregar el usuario actual al grupo docker
+sudo usermod -aG docker ubuntu
+echo "Usuario $USER agregado al grupo 'docker'."
+
+# Aplicar los cambios de grupo sin cerrar sesión
+newgrp docker
+
+# Habilitar Docker para que se inicie al arrancar el sistema
+sudo systemctl enable docker.service
+sudo systemctl enable containerd.service
+echo "Docker ha sido configurado para iniciarse automáticamente."
+
+# Reiniciar Docker para aplicar cambios
+sudo systemctl restart docker
+
+
+echo "Configuración completada. Si experimentas problemas, reinicia la máquina o cierra y vuelve a iniciar sesión."
